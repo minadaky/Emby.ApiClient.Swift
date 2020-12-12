@@ -21,7 +21,7 @@ public class ServerCredentials: NSObject, NSCoding {
     
     func addOrUpdateServer(server: ServerInfo!) {
         if ( servers.contains(server)) {
-            let index = servers.index(of: server)!
+            let index = servers.firstIndex(of: server)!
             
             let existingServer = servers[index]
 

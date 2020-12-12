@@ -220,7 +220,7 @@ public class ConnectionManager: ConnectionManagerProtocol {
         var tests = [ConnectionMode.Manual, ConnectionMode.Local, ConnectionMode.Remote]
         
         if let lastConnectionMode = server.lastConnectionMode {
-            tests.remove(at: tests.index(of: lastConnectionMode)!)
+            tests.remove(at: tests.firstIndex(of: lastConnectionMode)!)
             tests.insert(lastConnectionMode, at: 0)
         }
         

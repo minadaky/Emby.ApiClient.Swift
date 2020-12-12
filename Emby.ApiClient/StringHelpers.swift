@@ -7,7 +7,7 @@ import Foundation
 
 internal func splitToArray(stringToSplit: String?, delimiter: Character) -> [String] {
     if let toBeSplit = stringToSplit {
-        return toBeSplit.characters.split{ $0 == delimiter }.map(String.init).filter({!$0.isEmpty})
+        return toBeSplit.split{ $0 == delimiter }.map(String.init).filter({!$0.isEmpty})
     } else {
         return [String]()
     }
@@ -34,7 +34,7 @@ extension String {
         for i in 0..<digestLen {
             hash.appendFormat("%02x", result[i])
         }
-        result.deinitialize()
+        result.deinitialize(count: digestLen)
         
         return String( hash)
     }

@@ -48,7 +48,7 @@ public class NetworkConnection: NSObject, INetworkConnection, GCDAsyncUdpSocketD
     
     private func macBytesFromString(macAddress: String) -> [UInt8]? {
         let address = "01:23:45:67:89:AB"
-        let substrings = address.characters.split(separator: ":")
+        let substrings = address.split(separator: ":")
         
         if substrings.count != 6 {
             return nil

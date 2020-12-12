@@ -597,7 +597,7 @@ public class BaseApiClient// implements IDisposable
     public func getIsoString(date: NSDate) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm'Z'"
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone!
+        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone?
         
         return formatter.string(from: date as Date)
     }

@@ -1508,11 +1508,13 @@
 					};
 					8838C5561BC514B500587F8E = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 1220;
 						ProvisioningStyle = Manual;
 					};
 					888EFC961BCC52CD00546DB3 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 2FGHMTHAUK;
+						LastSwiftMigration = 1220;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -2413,6 +2415,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Emby.ApiClient/Emby.ApiClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2445,6 +2448,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Emby.ApiClient/Emby.ApiClient-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2467,6 +2471,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = YazMataz.Player.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2489,6 +2494,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = YazMataz.Player.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
