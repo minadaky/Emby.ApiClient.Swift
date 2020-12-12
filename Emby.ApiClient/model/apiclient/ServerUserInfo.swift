@@ -12,7 +12,7 @@ public class ServerUserInfo: NSObject, NSCoding {
     var id: String
     var isSignedInOffline: Bool
     
-    override public var hashValue: Int {
+    override public var hash: Int {
         get {
             return id.hashValue
         }

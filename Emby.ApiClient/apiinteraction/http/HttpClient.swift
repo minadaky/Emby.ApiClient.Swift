@@ -21,11 +21,12 @@ public class HttpClient : IAsyncHttpClient {
     
     public func sendRequest<T : JSONSerializable>(request: HttpRequest, success: @escaping (T) -> Void, failure: @escaping (EmbyError) -> Void) {
         
-        Alamofire.request(request)
+        AF.request(request)
+            /*
             .validate { request, response, data in
                 // custom evalution clousre now includes data (allows you to parse data to dig out error messeages
                 return .success
-            }
+            }*/
             .responseJSON { response in
                 if case .success(let json) = response.result {
                     if  let jsonObject = json as? JSON_Object {
@@ -52,78 +53,77 @@ public class HttpClient : IAsyncHttpClient {
     
     public func sendCollectionRequest<T : JSONSerializable>(request: HttpRequest, success: @escaping ([T]) -> Void, failure: @escaping (EmbyError) -> Void) {
         
-        Alamofire.request(request)
-            .validate { request, response, data in
+        AF.request(request)
+            /*.validate { request, response, data in
                 // custom evalution clousre now includes data (allows you to parse data to dig out error messeages
                 print(response.description)
 
                 return .success
-            }
+            }*/
             .responseJSON { response in
-                print(response.result.error?.localizedDescription)
-//                if case .success(_) = response.result {
-//                    print(response.result.value as? JSON_Object)
-//                    if let jsonArray = response.result.value as? JSON_Array {
-//
-//                        var results: [T] = []
-//
-//                        for object in jsonArray {
-//                            if let jsonObject = object as? JSON_Object, let object = T(jSON: jsonObject) {
-//                                results.append(object)
-//                            }
-//                        }
-//
-//                        success(results)
-//                    }
-//                    else {
-//                        failure(EmbyError.JsonDeserializationError)
-//                    }
-//                }
-//                else if case .failure(let error) = response.result {
-//                    failure(EmbyError.NetworkRequestError(error.localizedDescription))
-//                }
-                
-//                guard response.result.isSuccess else
-//                {
-//                    let error = response.result as! Error
-//                    failure(EmbyError.NetworkRequestError(error.localizedDescription))
-//                    return
-//                }
-                print("JSON_Object: \(response.result.value as? JSON_Object)")
-                print("JSON_Array: \(response.result.value as? JSON_Array)")
-                print("Raw result value: \(response.result.value)")
-                
-                if let jsonArray = response.result.value as? JSON_Array {
+                switch response.result {
+                case .success(let result):
+                    //print(response.result.error?.localizedDescription)
+    //                if case .success(_) = response.result {
+    //                    print(response.result.value as? JSON_Object)
+    //                    if let jsonArray = response.result.value as? JSON_Array {
+    //
+    //                        var results: [T] = []
+    //
+    //                        for object in jsonArray {
+    //                            if let jsonObject = object as? JSON_Object, let object = T(jSON: jsonObject) {
+    //                                results.append(object)
+    //                            }
+    //                        }
+    //
+    //                        success(results)
+    //                    }
+    //                    else {
+    //                        failure(EmbyError.JsonDeserializationError)
+    //                    }
+    //                }
+    //                else if case .failure(let error) = response.result {
+    //                    failure(EmbyError.NetworkRequestError(error.localizedDescription))
+    //                }
                     
-                    var results: [T] = []
+    //                guard response.result.isSuccess else
+    //                {
+    //                    let error = response.result as! Error
+    //                    failure(EmbyError.NetworkRequestError(error.localizedDescription))
+    //                    return
+    //                }
+                    print("JSON_Object: \(result as? JSON_Object)")
+                    print("JSON_Array: \(result as? JSON_Array)")
+                    print("Raw result value: \(result)")
                     
-                    for object in jsonArray {
-                        if let jsonObject = object as? JSON_Object, let object = T(jSON: jsonObject) {
-                            results.append(object)
+                    if let jsonArray = result as? JSON_Array {
+                        
+                        var results: [T] = []
+                        
+                        for object in jsonArray {
+                            if let jsonObject = object as? JSON_Object, let object = T(jSON: jsonObject) {
+                                results.append(object)
+                            }
                         }
+                        
+                        print(results)
+                        success(results)
                     }
-                    
-                    print(results)
-                    success(results)
-                }
-                else if let jsonArray = (response.result.value as! JSON_Object)["Items"] as? JSON_Array
-                {
-                    var results: [T] = []
-                    
-                    for object in jsonArray {
-                        if let jsonObject = object as? JSON_Object, let object = T(jSON: jsonObject) {
-                            results.append(object)
+                    else if let jsonArray = (result as! JSON_Object)["Items"] as? JSON_Array
+                    {
+                        var results: [T] = []
+                        
+                        for object in jsonArray {
+                            if let jsonObject = object as? JSON_Object, let object = T(jSON: jsonObject) {
+                                results.append(object)
+                            }
                         }
+                        
+                        success(results)
                     }
-                    
-                    success(results)
-                }
-                else
-                {
+                case .failure(_) :
                     failure(EmbyError.JsonDeserializationError)
-                }
-             
-                
+            }
         }
     }
 }

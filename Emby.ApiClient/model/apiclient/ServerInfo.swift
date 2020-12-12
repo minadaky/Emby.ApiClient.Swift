@@ -23,7 +23,7 @@ public class ServerInfo: NSObject, NSCoding {
     public var userLinkType: UserLinkType?
     public var lastConnectionMode: ConnectionMode?
     
-    override public var hashValue: Int {
+    override public var hash: Int {
         get {
             return id.hashValue
         }
